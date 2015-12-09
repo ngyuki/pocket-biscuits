@@ -1,0 +1,10 @@
+{% extends "layout/layout.html.twig" %}
+
+{% block navbar %}
+{% endblock %}
+
+{% block content %}
+    <form action="{{ path('login') }}">
+        <button class="btn btn-success btn-lg">Sign in with Pocket</button>
+    </form>
+{% endblock %}

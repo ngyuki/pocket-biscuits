@@ -1,0 +1,2 @@
+<?php
+$app['pocket.consumer_key'] = 'YOUR_POCKET_CUSTOMER_KEY';
