@@ -12,3 +12,15 @@ rsync -cv \
   node_modules/jquery/dist/jquery.min.js \
     html/lib/
 ```
+
+## Deploy to heroku
+
+```sh
+heroku create pocket-biscuits
+heroku git:remote -a pocket-biscuits
+heroku buildpacks:set heroku/php
+heroku config:set APP_ENV=prod
+heroku config:set POCKET_CUSTOMER_KEY=$YOUR_POCKET_CUSTOMER_KEY
+
+git push heroku master
+```
