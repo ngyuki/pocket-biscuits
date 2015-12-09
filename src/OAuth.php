@@ -4,7 +4,7 @@ namespace App;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
 
-class OAuth
+class OAuth implements OAuthInterface
 {
     const AUTHORIZE_URL = "https://getpocket.com/auth/authorize";
     const ENDPOINT_URL = "https://getpocket.com/v3/";

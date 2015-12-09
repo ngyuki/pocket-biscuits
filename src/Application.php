@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * @property Session $session
  * @property \Twig_Environment $twig
- * @property OAuth $oauth
+ * @property OAuthInterface $oauth
  */
 class Application extends \Silex\Application
 {
@@ -36,7 +36,7 @@ class Application extends \Silex\Application
     protected function initConfig()
     {
         $dir = realpath(__DIR__ . '/../config');
-        $env = getenv('APP_ENV') ?: 'dev';
+        $env = $this['env'] = getenv('APP_ENV') ?: 'dev';
 
         $list = [
             "$dir/default.php",
@@ -84,7 +84,7 @@ class Application extends \Silex\Application
     protected function initRoute()
     {
         $this->before(function (Request $request) {
-            if (preg_match('#^/(login|authorize|logout)$#', $request->getRequestUri()) == 0) {
+            if (preg_match('#^/(login|authorize|logout)$#', $request->getPathInfo()) == 0) {
                 $accessToken = $this->session->get("accessToken");
                 if (strlen($accessToken)) {
                     $this->oauth->setAccessToken($accessToken);
