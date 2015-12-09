@@ -24,3 +24,7 @@ heroku config:set POCKET_CUSTOMER_KEY=$YOUR_POCKET_CUSTOMER_KEY
 
 git push heroku master
 ```
+
+## Demo
+
+[http://pocket-biscuits.herokuapp.com/](http://pocket-biscuits.herokuapp.com/)
