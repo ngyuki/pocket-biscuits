@@ -103,53 +103,13 @@ class Application extends \Silex\Application
             }
         });
 
-        $this->get('/login', function () {
-            $requestToken = $this->oauth->fetchRequestToken();
-            $this->session->set("requestToken", $requestToken);
-            $authorizeUrl = $this->oauth->generateAuthorizeUrl($requestToken);
-            return $this->redirect($authorizeUrl);
-        })->bind("login");
+        $this->get('/login', 'App\Controller::login')->bind("login");
+        $this->get('/authorize', 'App\Controller::authorize')->bind("authorize");
+        $this->get('/logout', 'App\Controller::logout')->bind('logout');
 
-        $this->get('/authorize', function () {
-            $requestToken = $this->session->get("requestToken");
-            $accessToken = $this->oauth->fetchAccessToken($requestToken);
-            $this->session->set('accessToken', $accessToken);
-            return $this->redirect($this->path('top'));
-        })->bind("authorize");
-
-        $this->get('/logout', function () {
-            $this->session->clear();
-            return $this->redirect($this->path('top'));
-        })->bind('logout');
-
-        $this->get('/', function () {
-            $list = $this->oauth->retrieveLatest();
-            $username = $this->oauth->getUsername();
-            return $this->render('index.html.twig', [
-                'list' => $list,
-                'username' => $username
-            ]);
-        })->bind("top");
-
-        $this->get('/random', function () {
-            $list = $this->oauth->retrieveRandom();
-            $username = $this->oauth->getUsername();
-            return $this->render('index.html.twig', [
-                'list' => $list,
-                'username' => $username
-            ]);
-        })->bind("random");
-
-        $this->post('/archive', function (Request $request) {
-            $item_id = $request->get('item_id');
-            $this->oauth->archive($item_id);
-            return $this->json(true);
-        })->bind("archive");
-
-        $this->post('/unarchive', function (Request $request) {
-            $item_id = $request->get('item_id');
-            $this->oauth->readd($item_id);
-            return $this->json(true);
-        })->bind("unarchive");
+        $this->get('/', 'App\Controller::latest')->bind("top");
+        $this->get('/random', 'App\Controller::random')->bind("random");
+        $this->post('/archive', 'App\Controller::archive')->bind("archive");
+        $this->post('/unarchive', 'App\Controller::unarchive')->bind("unarchive");
     }
 }
