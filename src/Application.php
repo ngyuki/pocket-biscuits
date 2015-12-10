@@ -9,6 +9,7 @@ use Silex\Provider\UrlGeneratorServiceProvider;
 use Silex\Provider\TwigServiceProvider;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 /**
  * @property Session $session
@@ -110,18 +111,16 @@ class Application extends \Silex\Application
             }
         });
 
+        $this->get('/', function () {
+            return $this->handle(Request::create('/latest'), HttpKernelInterface::SUB_REQUEST, false);
+        })->bind("top");
+
         $this->get('/login', 'app.controller:login')->bind("login");
-
         $this->get('/authorize', 'app.controller:authorize')->bind("authorize");
-
         $this->get('/logout', 'app.controller:logout')->bind('logout');
-
-        $this->get('/', 'app.controller:latest')->bind("top");
-
+        $this->get('/latest', 'app.controller:latest')->bind("latest");
         $this->get('/random', 'app.controller:random')->bind("random");
-
         $this->post('/archive', 'app.controller:archive')->bind("archive");
-
         $this->post('/unarchive', 'app.controller:unarchive')->bind("unarchive");
     }
 }
