@@ -3,6 +3,7 @@ namespace App;
 
 use Silex\Application\UrlGeneratorTrait;
 use Silex\Application\TwigTrait;
+use Silex\Provider\ServiceControllerServiceProvider;
 use Silex\Provider\SessionServiceProvider;
 use Silex\Provider\UrlGeneratorServiceProvider;
 use Silex\Provider\TwigServiceProvider;
@@ -57,6 +58,8 @@ class Application extends \Silex\Application
 
     protected function initService()
     {
+        $this->register(new ServiceControllerServiceProvider());
+
         $this->register(new SessionServiceProvider());
 
         $this->register(new UrlGeneratorServiceProvider());
@@ -79,6 +82,10 @@ class Application extends \Silex\Application
             $consumerKey = $this['pocket.consumer_key'];
             return new OAuth($consumerKey, $this->url('authorize'));
         });
+
+        $this['app.controller'] = function() {
+            return new Controller();
+        };
     }
 
     protected function initRoute()
@@ -103,13 +110,18 @@ class Application extends \Silex\Application
             }
         });
 
-        $this->get('/login', 'App\Controller::login')->bind("login");
-        $this->get('/authorize', 'App\Controller::authorize')->bind("authorize");
-        $this->get('/logout', 'App\Controller::logout')->bind('logout');
+        $this->get('/login', 'app.controller:login')->bind("login");
 
-        $this->get('/', 'App\Controller::latest')->bind("top");
-        $this->get('/random', 'App\Controller::random')->bind("random");
-        $this->post('/archive', 'App\Controller::archive')->bind("archive");
-        $this->post('/unarchive', 'App\Controller::unarchive')->bind("unarchive");
+        $this->get('/authorize', 'app.controller:authorize')->bind("authorize");
+
+        $this->get('/logout', 'app.controller:logout')->bind('logout');
+
+        $this->get('/', 'app.controller:latest')->bind("top");
+
+        $this->get('/random', 'app.controller:random')->bind("random");
+
+        $this->post('/archive', 'app.controller:archive')->bind("archive");
+
+        $this->post('/unarchive', 'app.controller:unarchive')->bind("unarchive");
     }
 }
