@@ -67,4 +67,12 @@ class Controller
 
         return $app->json(true);
     }
+
+    public function delete(Application $app, Request $request)
+    {
+        $item_id = $request->get('item_id');
+        $app->oauth->delete($item_id);
+
+        return $app->json(true);
+    }
 }

@@ -54,4 +54,9 @@ interface OAuthInterface
      * @param string $item_id
      */
     public function readd($item_id);
+
+    /**
+     * @param string $item_id
+     */
+    public function delete($item_id);
 }

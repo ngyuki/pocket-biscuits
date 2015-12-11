@@ -154,4 +154,12 @@ class OAuth implements OAuthInterface
             'item_id' => $item_id,
         ]);
     }
+
+    public function delete($item_id)
+    {
+        $this->modify([
+            'action' => 'delete',
+            'item_id' => $item_id,
+        ]);
+    }
 }

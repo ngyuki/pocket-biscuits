@@ -122,5 +122,6 @@ class Application extends \Silex\Application
         $this->get('/random', 'app.controller:random')->bind("random");
         $this->post('/archive', 'app.controller:archive')->bind("archive");
         $this->post('/unarchive', 'app.controller:unarchive')->bind("unarchive");
+        $this->post('/delete', 'app.controller:delete')->bind("delete");
     }
 }

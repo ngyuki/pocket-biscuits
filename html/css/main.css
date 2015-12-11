@@ -1,4 +1,17 @@
-.archive {
-    text-decoration: line-through;
+[data-item-id] {
+    opacity: 1;
+    transition-property: opacity;
+    transition-duration: 0.3s;
+}
+
+[data-item-id].archive {
     opacity: 0.3;
+}
+
+[data-item-id].delete {
+    opacity: 0;
+}
+
+[data-item-id] .list-group-item-text {
+    width: calc(100% - 150px);
 }

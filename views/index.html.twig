@@ -14,14 +14,24 @@
 {% endblock %}
 
 {% block content %}
-    <ul class="list-group">
+    <div class="list-group">
+
         {% for item in list %}
-            <li class="list-group-item" data-item-id="{{ item.item_id }}">
-                <a href="" class="badge js-toggle-archive">Archive</a>
-                <a href="{{ item.resolved_url }}" target="_blank">
-                    {{ item.resolved_title }}
-                </a>
-            </li>
+            <div class="list-group-item" data-item-id="{{ item.item_id }}">
+                <div class="pull-right">
+                    <button type="button" class="btn btn-sm btn-warning js-do-archive">Archive</button>
+                    <button type="button" class="btn btn-sm btn-danger  js-do-delete">Delete</button>
+                </div>
+                <h4 class="list-group-item-heading">
+                    <a href="{{ item.resolved_url }}" target="_blank">
+                        {{ item.resolved_title }}
+                    </a>
+                </h4>
+                <p class="list-group-item-text">
+                    {{ item.excerpt }}
+                </p>
+            </div>
         {% endfor  %}
-    </ul>
+
+    </div>
 {% endblock %}
