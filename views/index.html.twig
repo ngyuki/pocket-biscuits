@@ -30,8 +30,13 @@
                 <p class="list-group-item-text">
                     {{ item.excerpt }}
                 </p>
-                <p class="list-group-item-text text-warning">
-                    <i>{{ item.time_added|date("Y-m-d H:i:s") }}</i>
+                <p class="list-group-item-text text-warning" style="margin:8px 0 0 8px">
+                    <i>
+                        Added: {{ item.time_added|date("Y-m-d H:i:s") }}
+                        {% if item.time_added != item.time_updated %}
+                            -> Updated: {{ item.time_updated|date("Y-m-d H:i:s") }}
+                        {% endif %}
+                    </i>
                 </p>
             </div>
         {% endfor  %}
