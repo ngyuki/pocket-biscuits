@@ -60,4 +60,8 @@ class OAuthMock implements OAuthInterface
     public function readd($item_id)
     {
     }
+
+    public function delete($item_id)
+    {
+    }
 }
