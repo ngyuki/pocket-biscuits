@@ -24,7 +24,11 @@
                 </div>
                 <h4 class="list-group-item-heading">
                     <a href="{{ item.resolved_url }}" target="_blank">
-                        {{ item.resolved_title }}
+                        {% if item.resolved_title %}
+                            {{ item.resolved_title }}
+                        {% else %}
+                            <i>no title</i>
+                        {% endif %}
                     </a>
                 </h4>
                 <p class="list-group-item-text">
