@@ -7,9 +7,12 @@ $(function(){
 
         var action = $parent.hasClass('archive') ? "unarchive" : "archive";
 
+        $parent.toggleClass('archive');
+
         $.post(action, { item_id:item_id }).success(function(){
-            $parent.toggleClass('archive');
+            //
         }).error(function(xhr){
+            $parent.toggleClass('archive');
             alert(xhr.statusText);
         });
     });
@@ -22,19 +25,37 @@ $(function(){
             var $parent = $(this).parents('[data-item-id]');
             var item_id = $parent.data('item-id');
 
+            var posted = $.Deferred();
+
             $.post('delete', {item_id: item_id}).success(function () {
-                $parent.toggleClass('delete');
-                $parent.one('transitionend', function () {
+                posted.resolve();
+                console.log('posted.resolve');
+            }).error(function(xhr){
+                posted.reject();
+                alert(xhr.statusText);
+            });
+
+            var animated = $.Deferred();
+
+            $parent.toggleClass('delete');
+            $parent.one('transitionend', function () {
+                animated.resolve();
+                console.log('animated.resolve');
+            });
+
+            $.when(posted, animated)
+                .done(function(){
                     $parent.show();
                     $parent.slideUp();
                     $parent.queue(function () {
                         $parent.remove();
                         $parent.dequeue();
                     })
-                });
-            }).error(function(xhr){
-                alert(xhr.statusText);
-            });
+                })
+                .fail(function(){
+                    $parent.toggleClass('delete');
+                })
+            ;
         }
     });
 });
