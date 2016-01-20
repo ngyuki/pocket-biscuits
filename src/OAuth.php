@@ -123,7 +123,9 @@ class OAuth implements OAuthInterface
             'detailType' => 'simple',
         ]);
 
-        return array_intersect_key($list, array_flip(array_rand($list, 10)));
+        $list = array_intersect_key($list, array_flip(array_rand($list, 10)));
+        shuffle($list);
+        return $list;
     }
 
     public function modify($action)
