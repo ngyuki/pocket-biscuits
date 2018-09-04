@@ -4,7 +4,7 @@
 
 ```sh
 composer install
-npm install
+npm ci
 rsync -cv \
   node_modules/bootstrap/dist/js/bootstrap.min.js \
   node_modules/bootstrap/dist/css/bootstrap.min.css \
