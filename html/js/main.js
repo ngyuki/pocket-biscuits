@@ -9,31 +9,37 @@ $(function(){
 
         $parent.toggleClass('archive');
 
-        $.post(action, { item_id:item_id }).success(function(){
-            //
-        }).error(function(xhr){
-            $parent.toggleClass('archive');
-            alert(xhr.statusText);
-        });
+        $.post(action, { item_id:item_id })
+            .then(function(){
+                // none
+            })
+            .fail(function(xhr){
+                $parent.toggleClass('archive');
+                alert(xhr.statusText);
+            })
+        ;
     });
 
     $('.js-do-delete').on('click', function(ev){
         ev.preventDefault();
 
-        if (confirm("Realy?")) {
+        if (confirm("Really?")) {
 
             var $parent = $(this).parents('[data-item-id]');
             var item_id = $parent.data('item-id');
 
             var posted = $.Deferred();
 
-            $.post('delete', {item_id: item_id}).success(function () {
-                posted.resolve();
-                console.log('posted.resolve');
-            }).error(function(xhr){
-                posted.reject();
-                alert(xhr.statusText);
-            });
+            $.post('delete', {item_id: item_id})
+                .then(function () {
+                    posted.resolve();
+                    console.log('posted.resolve');
+                })
+                .fail(function(xhr){
+                    posted.reject();
+                    alert(xhr.statusText);
+                })
+            ;
 
             var animated = $.Deferred();
 
