@@ -42,6 +42,14 @@
                         {% endif %}
                     </i>
                 </p>
+                {% if item.word_count or item.listen_duration_estimate %}
+                    <p class="list-group-item-text text-warning" style="margin:2px 0 0 8px">
+                        <i>
+                            {{ item.word_count }} word ...
+                            {{ (item.listen_duration_estimate / 90) | round }} min
+                        </i>
+                    </p>
+                {% endif %}
             </div>
         {% endfor  %}
 
