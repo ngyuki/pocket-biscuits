@@ -41,6 +41,7 @@ class OAuth implements OAuthInterface
             'base_uri' => self::ENDPOINT_URL,
             RequestOptions::HEADERS => [
                 'X-Accept' => 'application/json',
+                'User-Agent' => 'Unknown',
             ],
         ]);
     }
