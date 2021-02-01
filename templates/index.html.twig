@@ -1,55 +1,62 @@
 {% extends "layout/layout.html.twig" %}
 
 {% block navbar %}
-    <ul class="nav navbar-nav">
-        <li><a href="{{ url_for('top') }}">Latest</a></li>
-        <li><a href="{{ url_for('random') }}">Random</a></li>
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('latest') }}">Latest</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('random') }}">Random</a>
+        </li>
     </ul>
-    <form class="navbar-form navbar-right">
-        <a href="{{ url_for('logout') }}" class="btn btn-default">Logout</a>
+    <form class="form-inline my-0">
+        <div class="navbar-text">
+            {{ username }}
+        </div>
+        <a class="btn btn-outline-danger my-1 mx-2" href="{{ url_for('logout') }}">Logout</a>
     </form>
-    <div class="navbar-text navbar-right">
-        {{ username }}
-    </div>
 {% endblock %}
 
 {% block content %}
-    <div class="list-group">
-
+    <div>
         {% for item in list %}
-            <div class="list-group-item" data-item-id="{{ item.item_id }}">
-                <div class="pull-right">
-                    <button type="button" class="btn btn-sm btn-warning js-do-archive">Archive</button>
-                    <button type="button" class="btn btn-sm btn-danger  js-do-delete">Delete</button>
+            <div class="mt-1 d-flex flex-column border border-secondary rounded px-2" data-item-id="{{ item.item_id }}">
+                <div class="mt-2 d-flex flex-row align-items-center">
+                    <div>
+                        <button type="button" class="btn btn-sm btn-warning js-do-archive">Archive</button>
+                        <button type="button" class="btn btn-sm btn-danger  js-do-delete">Delete</button>
+                    </div>
+                    <h4 class="mx-2 my-0">
+                        <a href="{{ item.resolved_url }}" target="_blank">
+                            {% if item.resolved_title %}
+                                {{ item.resolved_title }}
+                            {% else %}
+                                <i>no title</i>
+                            {% endif %}
+                        </a>
+                    </h4>
                 </div>
-                <h4 class="list-group-item-heading">
-                    <a href="{{ item.resolved_url }}" target="_blank">
-                        {% if item.resolved_title %}
-                            {{ item.resolved_title }}
-                        {% else %}
-                            <i>no title</i>
-                        {% endif %}
-                    </a>
-                </h4>
-                <p class="list-group-item-text">
+                <div class="mt-2 mx-2">
                     {{ item.excerpt }}
-                </p>
-                <p class="list-group-item-text text-warning" style="margin:8px 0 0 8px">
-                    <i>
-                        Added: {{ item.time_added|date("Y-m-d H:i:s") }}
-                        {% if item.time_added != item.time_updated %}
-                            -> Updated: {{ item.time_updated|date("Y-m-d H:i:s") }}
-                        {% endif %}
-                    </i>
-                </p>
-                {% if item.word_count or item.listen_duration_estimate %}
-                    <p class="list-group-item-text text-warning" style="margin:2px 0 0 8px">
+                </div>
+                <div class="my-1">
+                    <span class="ml-3 text-info">
                         <i>
-                            {{ item.word_count }} word ...
-                            {{ (item.listen_duration_estimate / 90) | round }} min
+                            Added: {{ item.time_added|date("Y-m-d H:i:s") }}
+                            {% if item.time_added != item.time_updated %}
+                                -> Updated: {{ item.time_updated|date("Y-m-d H:i:s") }}
+                            {% endif %}
                         </i>
-                    </p>
-                {% endif %}
+                    </span>
+                    {% if item.word_count or item.listen_duration_estimate %}
+                        <span class="ml-3 text-info">
+                            <i>
+                                {{ item.word_count }} word ...
+                                {{ (item.listen_duration_estimate / 90) | round }} min
+                            </i>
+                        </span>
+                    {% endif %}
+                </div>
             </div>
         {% endfor  %}
 
