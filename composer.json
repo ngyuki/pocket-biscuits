@@ -31,6 +31,9 @@
         }
     },
     "scripts": {
-        "compile": "@php scripts/optimize.php"
+        "compile": [
+            "@php scripts/optimize.php",
+            "rm ./app/cache/CompiledContainer.php"
+        ]
     }
 }
