@@ -1,5 +1,5 @@
 /vendor/
 /node_modules/
 /phpunit.xml
-/config/config.php
-/.php-version
+/.phpunit.result.cache
+/app/cache/

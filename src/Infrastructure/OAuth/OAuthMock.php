@@ -1,12 +1,14 @@
 <?php
-namespace App;
+namespace App\Infrastructure\OAuth;
+
+use RuntimeException;
 
 class OAuthMock implements OAuthInterface
 {
     private $authorizeUrl;
     private $accessToken;
 
-    public function __construct($authorizeUrl)
+    public function setRedirectUri(string $authorizeUrl)
     {
         $this->authorizeUrl = $authorizeUrl;
     }
@@ -43,13 +45,13 @@ class OAuthMock implements OAuthInterface
 
     public function retrieveLatest()
     {
-        $file = file_get_contents(__DIR__ . '/../mock/data.json');
+        $file = file_get_contents(__DIR__ . '/../../../mock/data.json');
         return json_decode($file, true);
     }
 
     public function retrieveRandom()
     {
-        $file = file_get_contents(__DIR__ . '/../mock/data.json');
+        $file = file_get_contents(__DIR__ . '/../../../mock/data.json');
         return json_decode($file, true);
     }
 
@@ -61,7 +63,7 @@ class OAuthMock implements OAuthInterface
                 return;
             case '9999999999';
                 sleep(1);
-                throw new \RuntimeException("oops!");
+                throw new RuntimeException("oops!");
         }
     }
 

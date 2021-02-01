@@ -1,5 +1,5 @@
 <?php
-namespace App;
+namespace App\Infrastructure\OAuth;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
@@ -11,14 +11,19 @@ class OAuth implements OAuthInterface
     const REQUEST_TOKEN_URL = "oauth/request";
     const ACCESS_TOKEN_URL  = "oauth/authorize";
 
-    private $consumerKey;
-    private $redirectUri;
-    private $accessToken;
-    private $username;
+    private string $consumerKey;
 
-    public function __construct($consumerKey, $redirectUri)
+    private string $redirectUri = '';
+    private string $accessToken = '';
+    private string $username = '';
+
+    public function __construct(string $consumerKey)
     {
         $this->consumerKey = $consumerKey;
+    }
+
+    public function setRedirectUri(string $redirectUri)
+    {
         $this->redirectUri = $redirectUri;
     }
 

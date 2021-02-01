@@ -1,5 +1,5 @@
 <?php
-namespace App;
+namespace App\Infrastructure\OAuth;
 
 interface OAuthInterface
 {
@@ -7,6 +7,11 @@ interface OAuthInterface
      * @param string $accessToken
      */
     public function setAccessToken($accessToken);
+
+    /**
+     * @param string $redirectUri
+     */
+    public function setRedirectUri(string $redirectUri);
 
     /**
      * @return bool
