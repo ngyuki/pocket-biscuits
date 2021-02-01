@@ -1,0 +1,25 @@
+version: '3.7'
+
+services:
+  app:
+    image: ngyuki/php-dev
+    init: true
+    ports:
+      - 9876:9876
+    working_dir: /code
+    volumes:
+      - .:/code
+    environment:
+      APP_DEBUG: 1
+      APP_CACHE_DIR: /code/data/cache
+      XDEBUG_MODE: develop,debug
+      XDEBUG_CONFIG: client_host=host.docker.internal
+      POCKET_CUSTOMER_KEY: ~
+    command:
+      - php
+      - -d
+      - zend_extension=xdebug.so
+      - -S
+      - 0.0.0.0:9876
+      - -t
+      - public

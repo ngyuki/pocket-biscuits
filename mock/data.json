@@ -18,7 +18,8 @@
         "is_index": "0",
         "has_video": "0",
         "has_image": "1",
-        "word_count": "256"
+        "word_count": "256",
+        "listen_duration_estimate": "1000"
     },
     "2": {
         "item_id": "9999999999",
@@ -39,7 +40,8 @@
         "is_index": "0",
         "has_video": "0",
         "has_image": "1",
-        "word_count": "256"
+        "word_count": "256",
+        "listen_duration_estimate": "1000"
     },
     "3": {
         "item_id": "1234567890",
@@ -60,7 +62,8 @@
         "is_index": "0",
         "has_video": "0",
         "has_image": "1",
-        "word_count": "256"
+        "word_count": "256",
+        "listen_duration_estimate": "1000"
     },
     "4": {
         "item_id": "8888888888",
@@ -81,7 +84,8 @@
         "is_index": "0",
         "has_video": "0",
         "has_image": "1",
-        "word_count": "256"
+        "word_count": "256",
+        "listen_duration_estimate": "1000"
     },
     "5": {
         "item_id": "1234567890",
@@ -102,7 +106,8 @@
         "is_index": "0",
         "has_video": "0",
         "has_image": "1",
-        "word_count": "256"
+        "word_count": "256",
+        "listen_duration_estimate": "1000"
     },
     "6": {
         "item_id": "1234567890",
@@ -123,7 +128,8 @@
         "is_index": "0",
         "has_video": "0",
         "has_image": "1",
-        "word_count": "256"
+        "word_count": "256",
+        "listen_duration_estimate": "1000"
     },
     "7": {
         "item_id": "1234567890",
@@ -144,7 +150,8 @@
         "is_index": "0",
         "has_video": "0",
         "has_image": "1",
-        "word_count": "256"
+        "word_count": "256",
+        "listen_duration_estimate": "1000"
     },
     "8": {
         "item_id": "1234567890",
@@ -165,6 +172,7 @@
         "is_index": "0",
         "has_video": "0",
         "has_image": "1",
-        "word_count": "256"
+        "word_count": "256",
+        "listen_duration_estimate": "1000"
     }
 }

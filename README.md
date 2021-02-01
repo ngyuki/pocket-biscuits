@@ -10,7 +10,7 @@ rsync -cv \
   node_modules/bootstrap/dist/css/bootstrap.min.css \
   node_modules/bootstrap/dist/css/bootstrap.min.css.map \
   node_modules/jquery/dist/jquery.min.js \
-    html/lib/
+    public/lib/
 ```
 
 ## Deploy to heroku
