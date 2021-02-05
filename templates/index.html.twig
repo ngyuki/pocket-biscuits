@@ -27,9 +27,11 @@
                         <button type="button" class="btn btn-sm btn-danger  js-do-delete">Delete</button>
                     </div>
                     <h4 class="mx-2 my-0">
-                        <a href="{{ item.resolved_url }}" target="_blank">
+                        <a href="{{ item.resolved_url | default(item.given_url) }}" target="_blank">
                             {% if item.resolved_title %}
                                 {{ item.resolved_title }}
+                            {% elseif item.given_title %}
+                                {{ item.given_title }}
                             {% else %}
                                 <i>no title</i>
                             {% endif %}
