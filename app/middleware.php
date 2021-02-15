@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+use App\Application\Middleware\CookieMiddleware;
 use App\Application\Middleware\CsrfMiddleware;
 use App\Infrastructure\OAuth\OAuthInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -12,6 +13,7 @@ use Slim\Views\Twig;
 use Slim\Views\TwigMiddleware;
 
 return function (App $app) {
+    $app->add(CookieMiddleware::class);
     $app->add(CsrfMiddleware::class);
     $app->add(TwigMiddleware::createFromContainer($app, Twig::class));
 
