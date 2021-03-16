@@ -4,8 +4,6 @@ declare(strict_types=1);
 use App\Infrastructure\OAuth\OAuth;
 use App\Infrastructure\OAuth\OAuthInterface;
 use App\Infrastructure\OAuth\OAuthMock;
-use App\Infrastructure\Session\Session;
-use App\Infrastructure\Session\SessionInterface;
 use DI\ContainerBuilder;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -16,6 +14,7 @@ use Psr\Log\LoggerInterface;
 use Slim\App;
 use Slim\Http\Factory\DecoratedResponseFactory;
 use Slim\Interfaces\RouteParserInterface;
+use Slim\Psr7\Cookies;
 use Slim\Psr7\Factory\ResponseFactory;
 use Slim\Psr7\Factory\StreamFactory;
 use Slim\Views\Twig;
@@ -56,10 +55,6 @@ return function (ContainerBuilder $containerBuilder) {
             return Twig::create(__DIR__ . '/../templates', $options);
         },
 
-        SessionInterface::class => function () {
-            return new Session();
-        },
-
         OAuthInterface::class => function (ContainerInterface $container) {
             $settings = $container->get('settings');
             $consumerKey = (string)$settings['pocket.consumer_key'];
@@ -68,6 +63,19 @@ return function (ContainerBuilder $containerBuilder) {
             } else {
                 return new OAuthMock();
             }
+        },
+
+        Cookies::class => function () {
+            $cookies = new Cookies();
+            $cookies->setDefaults( [
+                'hostonly' => true,
+                'path' => '/',
+                'expires' => null,
+                //'secure' => true,
+                'httponly' => true,
+                //'samesite' => 'strict',
+            ]);
+            return $cookies;
         },
     ]);
 };
